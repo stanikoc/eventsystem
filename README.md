@@ -43,10 +43,10 @@ import io.github.stanikoc.eventsystem.Listener;
 public class ResultService extends SubscriberImpl { //
     public ResultService() {
         // The generic type <ResultEvent> is automatically resolved at compile time
-        listen(new Listener<ResultEvent>() { //
+        listen(new Listener<ResultEvent>() {
             @Override
-            public void onEvent(ResultEvent event) { //
-                System.out.println("The result is: " + event.result()); //
+            public void onEvent(ResultEvent event) {
+                System.out.println("The result is: " + event.result());
             }
         });
 
@@ -81,10 +81,10 @@ public class Main {
 
     public static void main(String[] args) {
         // Register the subscriber
-        eventBus.subscribe(new ResultService()); //
+        eventBus.subscribe(new ResultService());
 
         // Post an event to all active listeners!
-        eventBus.post(new ResultEvent(42)); //
+        eventBus.post(new ResultEvent(42));
     }
 }
 ```
