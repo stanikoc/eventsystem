@@ -1,6 +1,13 @@
+pluginManagement {
+    includeBuild('eventsystem-plugin')
+}
+
 rootProject.name = 'eventsystem'
+
 include 'api'
 project(":api").projectDir = file("eventsystem-api")
+
 include 'impl'
 project(":impl").projectDir = file("eventsystem-impl")
+
 include 'exampleProject'
