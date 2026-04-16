@@ -2,11 +2,7 @@
 
 A blazing-fast event bus for Java.
 
-## The Magic: Type-Aware Listeners
-
-Traditionally, subscribing to events in Java requires clunky boilerplate where you must explicitly pass the class type you want to listen to. EventSystem changes the game. 
-
-By leveraging our compile-time injector, you simply create an anonymous `Listener<T>` and the system *automatically* knows what you are listening to. No `.class` parameters, no reflection, just clean and compact code:
+## Type-Aware Listeners
 
 ```java
 // Traditional systems:
