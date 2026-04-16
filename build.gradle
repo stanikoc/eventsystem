@@ -4,8 +4,6 @@ plugins {
 
 subprojects {
     apply plugin: 'java-library'
-    apply plugin: 'maven-publish'
-    apply plugin: 'signing'
 
     group = 'io.github.stanikoc'
     version = '1.0.0'
@@ -14,53 +12,60 @@ subprojects {
         mavenCentral()
     }
 
-    java {
-        withJavadocJar()
-        withSourcesJar()
-    }
+    // We wrap publishing in this if-statement so exampleProject is completely ignored
+    if (project.name != 'exampleProject') {
+        apply plugin: 'maven-publish'
+        apply plugin: 'signing'
 
-    publishing {
-        publications {
-            mavenJava(MavenPublication) {
-                from components.java
-                pom {
-                    name = project.name
-                    description = 'A high-performance event system with compile-time injection'
-                    url = 'https://github.com/stanikoc/eventsystem'
-                    licenses {
-                        license {
-                            name = 'The Apache License, Version 2.0'
-                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                        }
-                    }
-                    developers {
-                        developer {
-                            id = 'stanikoc'
-                            name = 'Stanikoc'
-                        }
-                    }
-                    scm {
-                        connection = 'scm:git:git://github.com/stanikoc/eventsystem.git'
-                        developerConnection = 'scm:git:ssh://github.com/stanikoc/eventsystem.git'
+        java {
+            withJavadocJar()
+            withSourcesJar()
+        }
+
+        publishing {
+            publications {
+                mavenJava(MavenPublication) {
+                    artifactId = "${rootProject.name}-${project.name}"
+                    from components.java
+                    pom {
+                        name = project.name
+                        description = 'A high-performance event system with compile-time injection'
                         url = 'https://github.com/stanikoc/eventsystem'
+                        licenses {
+                            license {
+                                name = 'The Apache License, Version 2.0'
+                                url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                            }
+                        }
+                        developers {
+                            developer {
+                                id = 'stanikoc'
+                                name = 'Stanikoc'
+                            }
+                        }
+                        scm {
+                            connection = 'scm:git:git://github.com/stanikoc/eventsystem.git'
+                            developerConnection = 'scm:git:ssh://github.com/stanikoc/eventsystem.git'
+                            url = 'https://github.com/stanikoc/eventsystem'
+                        }
                     }
+                }
+            }
+
+            repositories {
+                maven {
+                    name = 'CentralPortalRelease'
+                    url = rootProject.layout.buildDirectory.dir('central-sync')
                 }
             }
         }
 
-        repositories {
-            maven {
-                name = 'CentralPortalRelease'
-                url = rootProject.layout.buildDirectory.dir('central-sync')
+        signing {
+            def signingKey = project.findProperty("signing.keyId")
+            def signingPassword = project.findProperty("signing.password")
+            if (signingKey && signingPassword) {
+                sign publishing.publications.mavenJava
             }
-        }
-    }
-
-    signing {
-        def signingKey = project.findProperty("signing.keyId")
-        def signingPassword = project.findProperty("signing.password")
-        if (signingKey && signingPassword) {
-            sign publishing.publications.mavenJava
         }
     }
 }
