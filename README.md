@@ -2,25 +2,6 @@
 
 A blazing-fast event bus for Java.
 
-## The Magic: Type-Aware Listeners
-
-Traditionally, subscribing to events in Java requires clunky boilerplate where you must explicitly pass the class type you want to listen to. EventSystem changes the game. 
-
-By leveraging our compile-time injector, you simply create an anonymous `Listener<T>` and the system *automatically* knows what you are listening to. No `.class` parameters, no reflection, just clean and compact code:
-
-```java
-// Traditional systems:
-// listen(ResultEvent.class, event -> { ... });
-
-// EventSystem:
-listen(new Listener<ResultEvent>() { 
-    @Override
-    public void onEvent(ResultEvent event) {
-        // We already know it's a ResultEvent. Blazing fast!
-    }
-});
-```
-
 ## Requirements
 Java 17 or higher
 
@@ -59,13 +40,13 @@ package com.example;
 import io.github.stanikoc.eventsystem.SubscriberImpl;
 import io.github.stanikoc.eventsystem.Listener;
 
-public class ResultListener extends SubscriberImpl { //
-    public ResultListener() {
+public class ResultService extends SubscriberImpl { //
+    public ResultService() {
         // The generic type <ResultEvent> is automatically resolved at compile time
-        listen(new Listener<ResultEvent>() { //
+        listen(new Listener<ResultEvent>() {
             @Override
-            public void onEvent(ResultEvent event) { //
-                System.out.println("The result is: " + event.result()); //
+            public void onEvent(ResultEvent event) {
+                System.out.println("The result is: " + event.result());
             }
         });
 
@@ -100,10 +81,10 @@ public class Main {
 
     public static void main(String[] args) {
         // Register the subscriber
-        eventBus.subscribe(new ResultListener()); //
+        eventBus.subscribe(new ResultService());
 
         // Post an event to all active listeners!
-        eventBus.post(new ResultEvent(42)); //
+        eventBus.post(new ResultEvent(42));
     }
 }
 ```
