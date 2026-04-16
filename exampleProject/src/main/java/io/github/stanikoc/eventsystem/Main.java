@@ -5,7 +5,7 @@ public class Main {
 
     public static void main(String[] args) {
         // Subscribing the listener so it starts receiving events.
-        eventBus.subscribe(new ResultListener());
+        eventBus.subscribe(new ResultSubscriber());
 
         long timeMillis = System.currentTimeMillis();
         long result = timeMillis % 300;
