@@ -1,0 +1,24 @@
+plugins {
+    id 'java-gradle-plugin'
+}
+
+group = 'me.nova.eventsystem'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+gradlePlugin {
+    plugins {
+        create("eventSystemPlugin") {
+            id = 'me.nova.eventsystem.injector'
+            implementationClass = 'me.nova.eventsystem.EventSystemPlugin'
+        }
+    }
+}
+
+dependencies {
+    implementation 'org.ow2.asm:asm:9.9.1'
+    implementation 'org.ow2.asm:asm-commons:9.9.1'
+}

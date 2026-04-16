@@ -1,0 +1,12 @@
+plugins {
+    id 'base'
+}
+
+subprojects {
+    group = 'me.nova'
+    version = '1.0-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+    }
+}
