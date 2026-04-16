@@ -40,8 +40,8 @@ package com.example;
 import io.github.stanikoc.eventsystem.SubscriberImpl;
 import io.github.stanikoc.eventsystem.Listener;
 
-public class ResultListener extends SubscriberImpl { //
-    public ResultListener() {
+public class ResultService extends SubscriberImpl { //
+    public ResultService() {
         // The generic type <ResultEvent> is automatically resolved at compile time
         listen(new Listener<ResultEvent>() { //
             @Override
@@ -81,7 +81,7 @@ public class Main {
 
     public static void main(String[] args) {
         // Register the subscriber
-        eventBus.subscribe(new ResultListener()); //
+        eventBus.subscribe(new ResultService()); //
 
         // Post an event to all active listeners!
         eventBus.post(new ResultEvent(42)); //
