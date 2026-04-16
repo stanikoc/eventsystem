@@ -2,21 +2,6 @@
 
 A blazing-fast event bus for Java.
 
-## Type-Aware Listeners
-
-```java
-// Traditional systems:
-// listen(ResultEvent.class, event -> { ... });
-
-// EventSystem:
-listen(new Listener<ResultEvent>() { 
-    @Override
-    public void onEvent(ResultEvent event) {
-        // We already know it's a ResultEvent. Blazing fast!
-    }
-});
-```
-
 ## Requirements
 Java 17 or higher
 
