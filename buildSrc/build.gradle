@@ -2,7 +2,7 @@ plugins {
     id 'java-gradle-plugin'
 }
 
-group = 'me.nova.eventsystem'
+group = 'io.github.stanikoc'
 version = '1.0.0'
 
 repositories {
@@ -12,8 +12,8 @@ repositories {
 gradlePlugin {
     plugins {
         create("eventSystemPlugin") {
-            id = 'me.nova.eventsystem.injector'
-            implementationClass = 'me.nova.eventsystem.EventSystemPlugin'
+            id = 'io.github.stanikoc.eventsystem.injector'
+            implementationClass = 'io.github.stanikoc.eventsystem.EventSystemPlugin'
         }
     }
 }

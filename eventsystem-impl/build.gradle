@@ -1,6 +1,6 @@
 plugins {
     id 'java-library'
-    id 'me.nova.eventsystem.injector'
+    id 'io.github.stanikoc.eventsystem.injector'
 }
 
 dependencies {
