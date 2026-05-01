@@ -82,21 +82,4 @@ final class Util {
         return newArray;
     }
 
-    static EventListener<?>[] merge(EventListener<?>[] c, EventListener<?>[] a) {
-        if (a == null || a.length == 0) {
-            return c != null ? c : new EventListener<?>[0];
-        }
-
-        if (c == null || c.length == 0) {
-            EventListener<?>[] next = new EventListener<?>[a.length];
-            System.arraycopy(a, 0, next, 0, a.length);
-            return next;
-        }
-
-        EventListener<?>[] next = new EventListener<?>[c.length + a.length];
-        System.arraycopy(c, 0, next, 0, c.length);
-        System.arraycopy(a, 0, next, c.length, a.length);
-        return next;
-    }
-
 }

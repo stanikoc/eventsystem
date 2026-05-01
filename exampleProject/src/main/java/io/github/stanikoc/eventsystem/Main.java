@@ -3,7 +3,7 @@ package io.github.stanikoc.eventsystem;
 public class Main {
     private static final EventBus eventBus = new EventBusImpl();
 
-    public static void main(String[] args) {
+    static void main() {
         // Subscribing the listener so it starts receiving events.
         eventBus.subscribe(new ResultSubscriber());
 

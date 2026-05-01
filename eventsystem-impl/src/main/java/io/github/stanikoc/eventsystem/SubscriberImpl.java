@@ -1,16 +1,16 @@
 package io.github.stanikoc.eventsystem;
 
-public class SubscriberImpl implements MutableSubscriber {
-    private EventListener<?>[] listeners = null;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class SubscriberImpl implements Subscriber {
+    private final List<EventListener<?>> listeners = new ArrayList<>();
 
     @Override
-    public final EventListener<?>[] getListeners() {
+    public @NotNull List<EventListener<?>> getListeners() {
         return listeners;
-    }
-
-    @Override
-    public final void setListeners(EventListener<?>[] listeners) {
-        this.listeners = listeners;
     }
 
 }

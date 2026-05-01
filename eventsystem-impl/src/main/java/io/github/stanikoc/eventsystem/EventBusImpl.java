@@ -51,36 +51,25 @@ public final class EventBusImpl implements EventBus {
     @Override
     public void subscribe(@NotNull Subscriber subscriber) {
         if (subscribers.add(subscriber)) {
-            EventListener<?>[] listeners = subscriber.getListeners();
-            if (listeners != null) {
-                for (EventListener<?> l : listeners) {
-                    register(l);
-                }
-            }
+            subscriber.getListeners().forEach(this::register);
         }
     }
 
     @Override
     public void unsubscribe(@NotNull Subscriber subscriber) {
         if (subscribers.remove(subscriber)) {
-            EventListener<?>[] listeners = subscriber.getListeners();
-            if (listeners != null) {
-                for (EventListener<?> l : listeners) {
-                    unregister(l);
-                }
-            }
+            subscriber.getListeners().forEach(this::unregister);
         }
     }
 
     @Override
     public void register(@NotNull EventListener<?> listener) {
-        lookupByClass.compute(listener.getType(), (eventType, currentListeners) ->
-                Util.insert(currentListeners, listener));
+        lookupByClass.compute(listener.getType(), (_, currentListeners) -> Util.insert(currentListeners, listener));
     }
 
     @Override
     public void unregister(@NotNull EventListener<?> listener) {
-        lookupByClass.compute(listener.getType(), (eventType, currentListeners) -> {
+        lookupByClass.compute(listener.getType(), (_, currentListeners) -> {
             if (currentListeners == null || currentListeners.length == 0) {
                 return null;
             }
